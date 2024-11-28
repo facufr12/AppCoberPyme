@@ -104,6 +104,17 @@ const ProjectSummary = () => {
     return <p>No hay información de prospecto disponible.</p>;
   }
 
+  const getMailToLink = (email) => {
+    if (!email) {
+      console.error("Correo electrónico no proporcionado.");
+      return "#";
+    }
+
+    const subject = "Consulta sobre los servicios";
+    const body = "Hola, me gustaría recibir más información.";
+    return `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  };
+
   const getWhatsAppLink = (number) => {
     if (!number) {
       console.error("Número de teléfono no proporcionado.");
@@ -219,7 +230,7 @@ const ProjectSummary = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <FaWhatsapp size={20} className="text-success" />
+                    <FaWhatsapp size={30} className="text-success" />
                   </a>
                 </div>
               </div>
@@ -248,9 +259,13 @@ const ProjectSummary = () => {
                   </div>
                 </div>
                 <div>
-                  <p className="text-dark mb-0 fw-semi-bold">
-                    {prospecto.correo || "SIN CORREO"}
-                  </p>
+                 <a
+                    href={getMailToLink(prospecto.correo)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <BsFillEnvelopeOpenFill size={30} className="text-info" />
+                  </a>
                 </div>
               </div>
             </ListGroup.Item>

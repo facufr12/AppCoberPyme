@@ -57,7 +57,7 @@ const AllRoutes = () => {
         <Route path="/user/Cotizador" element={<Cotizador />} />
         <Route path="/user/addform" element={<ProspectForm />} />
 
-        <Route path="/user/checkout" element={<Checkout />} />
+        <Route path="/dashboard/checkout/Checkout" element={<Checkout />} />
         <Route
           path="/dashboard/projects/single/overview"
           element={<ProjectOverview />}

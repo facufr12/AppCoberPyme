@@ -34,7 +34,7 @@ const Checkout = () => {
   };
 
   const handleBack = () => {
-    navigate('/dashboard/projects/single/overview'); // Redirige al hacer clic en el botón
+    navigate('/user/instructor'); // Redirige al hacer clic en el botón
   };
 
   const steps = [
@@ -81,7 +81,7 @@ const Checkout = () => {
           <div className="border-bottom pb-3 mb-3">
             <div className="d-flex justify-content-between align-items-center mb-2 mb-lg-0">
               <h1 className="mb-0 h2 fw-bold"> Crear Póliza </h1>
-              <Button onClick={handleBack} variant="secondary">Volver</Button>
+              <Button onClick={handleBack} variant="primary">Ir A Prospectos</Button>
             </div>
             <Breadcrumb>
               <Breadcrumb.Item active>Póliza</Breadcrumb.Item>

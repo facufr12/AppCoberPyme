@@ -48,7 +48,7 @@ const Checkout = () => {
     },
     {
       id: 2,
-      title: 'Declaración de Salud',
+      title: 'Declaración Jurada de Salud',
       icon: <FaClipboardCheck />,
       content: (
         <ShippingInformation

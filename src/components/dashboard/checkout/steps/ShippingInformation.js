@@ -46,7 +46,7 @@ const ShippingInformation = (props) => {
             <div className="bs-stepper-content">
                 <div role="tabpanel" className="bs-stepper-pane">
                     <div className="mb-5">
-                        <h3 className="mb-1">Declaración de Salud</h3>
+                        <h3 className="mb-1">Declaración Jurada de Salud</h3>
                         <p className="mb-0">Afiliado.</p>
                     </div>
 

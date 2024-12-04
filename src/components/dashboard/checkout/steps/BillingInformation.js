@@ -1,22 +1,71 @@
-// import node module libraries
+import React, { useState } from "react";
 import { Row, Col, Form, Button } from "react-bootstrap";
-
-// import custom components
-import FormSelect from "components/elements/form-select/FormSelect";
 
 const BillingInformation = (props) => {
   const { next } = props;
 
+  // Estado local para el tipo de afiliación seleccionado
+  const [afiliacion, setAfiliacion] = useState("");
+
+  // Manejar cambio en la selección de afiliación
+  const handleAfiliacionChange = (e) => {
+    setAfiliacion(e.target.value);
+  };
+
+  // afiliaciones basadas en el tipo de afiliación seleccionado
+  const afiliaciones = {
+    "Particular/oAutoonomo": [
+      { value: "opcion1", label: "Opción 1" },
+      { value: "opcion3", label: "Opción 3" }
+    ],
+    "Conrecibodesueldo": [
+      { value: "opcionA", label: "Opción A" },
+      { value: "opcionB", label: "Opción B" },
+      { value: "opcionC", label: "Opción C" }
+    ],
+    "Monotributista": [
+      { value: "A", label: "A " },
+      { value: "A exento", label: "A Exento" },
+      { value: "B", label: "B" },
+      { value: "B Exento", label: "B Exento" },
+      { value: "C", label: "C" },
+      { value: "D", label: "D" },
+      { value: "E", label: "E " },
+      { value: "F", label: "F" },
+      { value: "G", label: "G" },
+      { value: "H", label: "H" },
+      { value: "I", label: "I" },
+      { value: "J", label: "J" },
+      { value: "K", label: "K" }
+    ]
+  };
+
+  // Renderizado condicional de afiliaciones
+  const renderSubOptions = () => {
+    if (afiliacion && afiliaciones[afiliacion]) {
+      return (
+        <Col md={12} className="mb-3">
+          <Form.Label>Opciones para {afiliacion.replace(/([A-Z])/g, ' $1').trim()}</Form.Label>
+          <Form.Control as="select" id={`subopcion_${afiliacion}`}>
+            <option value="">Selecciona una opción</option>
+            {afiliaciones[afiliacion].map((option) => (
+              <option key={option.value} value={option.value}>
+                {option.label}
+              </option>
+            ))}
+          </Form.Control>
+        </Col>
+      );
+    }
+    return null;
+  };
 
   return (
     <Form>
       <div className="bs-stepper-content">
-        {/* Content one */}
         <div role="tabpanel" className="bs-stepper-pane active dstepper-block">
-          {/* heading */}
-
           <Row className="gx-3">
-			<h3>Detalle de la Cotización</h3>
+          <h3>Detalle de la Cotización</h3>
             <Col md={4} className="mb-3">
               {/* First Name */}
               <Form.Label htmlFor="firstname">Nro de Póliza</Form.Label>
@@ -77,6 +126,15 @@ const BillingInformation = (props) => {
                 type="text"
                 id="costo_plan_lead"
                 placeholder=""
+              />
+            </Col>
+            <Col md={4} className="mb-3">
+              {/* First Name */}
+              <Form.Label htmlFor="firstname">Promoción Vigente %</Form.Label>
+              <Form.Control
+                type="text"
+                id="Promovigente"
+                placeholder="Promo"
               />
             </Col>
 			
@@ -324,28 +382,31 @@ const BillingInformation = (props) => {
                 placeholder="Número de póliza"
               />
             </Col>
-			<Col md={15} className="mb-6 mt-5">
-  {/* Edad */}
-  <Form.Label htmlFor="Localiad">Tipo de Afiliación</Form.Label>
-  <Form.Control 
-    as="select" 
-    id="afiliacion" 
-    className="select-center" // Usamos la clase CSS aquí
-  >
-    <option value="">Selecciona el tipo de afiliación</option>
-    <option value="Particular/oAutoonomo">Particular / Autónomo</option>
-    <option value="Conrecibodesueldo">Con Recibo de Sueldo</option>
-    <option value="Monotributista">Monotributista</option>
-  </Form.Control>
-</Col>
+            {/* Campo para seleccionar el tipo de afiliación */}
+            <Col md={15} className="mb-6 mt-5">
+              <Form.Label htmlFor="afiliacion">Tipo de Afiliación</Form.Label>
+              <Form.Control
+                as="select"
+                id="afiliacion"
+                className="select-center"
+                value={afiliacion}
+                onChange={handleAfiliacionChange}
+              >
+                <option value="">Selecciona el tipo de afiliación</option>
+                <option value="Particular/oAutoonomo">Particular / Autónomo</option>
+                <option value="Conrecibodesueldo">Con Recibo de Sueldo</option>
+                <option value="Monotributista">Monotributista</option>
+              </Form.Control>
+            </Col>
 
-
+            {/* afiliaciones dinámicas */}
+            {renderSubOptions()}
           </Row>
 
-          {/* Button */}
+          {/* Botón para avanzar */}
           <div className="d-flex justify-content-end">
             <Button variant="primary" onClick={next}>
-              Avanzar a "Declaración de Salud"{" "}
+              Avanzar a "Declaración Jurada de Salud"
               <i className="fe fe-shopping-bag ms-1"></i>
             </Button>
           </div>
@@ -354,4 +415,5 @@ const BillingInformation = (props) => {
     </Form>
   );
 };
+
 export default BillingInformation;

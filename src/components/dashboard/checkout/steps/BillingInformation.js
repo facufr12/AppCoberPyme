@@ -4,60 +4,62 @@ import { Row, Col, Form, Button } from "react-bootstrap";
 const BillingInformation = (props) => {
   const { next } = props;
 
-  // Estado local para el tipo de afiliación seleccionado
   const [afiliacion, setAfiliacion] = useState("");
 
-  // Manejar cambio en la selección de afiliación
   const handleAfiliacionChange = (e) => {
     setAfiliacion(e.target.value);
   };
 
-  // afiliaciones basadas en el tipo de afiliación seleccionado
-  const afiliaciones = {
-    "Particular/oAutoonomo": [
-      { value: "opcion1", label: "Opción 1" },
-      { value: "opcion3", label: "Opción 3" }
-    ],
-    "Conrecibodesueldo": [
-      { value: "opcionA", label: "Opción A" },
-      { value: "opcionB", label: "Opción B" },
-      { value: "opcionC", label: "Opción C" }
-    ],
-    "Monotributista": [
-      { value: "A", label: "A " },
-      { value: "A exento", label: "A Exento" },
-      { value: "B", label: "B" },
-      { value: "B Exento", label: "B Exento" },
-      { value: "C", label: "C" },
-      { value: "D", label: "D" },
-      { value: "E", label: "E " },
-      { value: "F", label: "F" },
-      { value: "G", label: "G" },
-      { value: "H", label: "H" },
-      { value: "I", label: "I" },
-      { value: "J", label: "J" },
-      { value: "K", label: "K" }
-    ]
-  };
-
-  // Renderizado condicional de afiliaciones
-  const renderSubOptions = () => {
-    if (afiliacion && afiliaciones[afiliacion]) {
-      return (
-        <Col md={12} className="mb-3">
-          <Form.Label>Opciones para {afiliacion.replace(/([A-Z])/g, ' $1').trim()}</Form.Label>
-          <Form.Control as="select" id={`subopcion_${afiliacion}`}>
-            <option value="">Selecciona una opción</option>
-            {afiliaciones[afiliacion].map((option) => (
-              <option key={option.value} value={option.value}>
-                {option.label}
-              </option>
-            ))}
-          </Form.Control>
-        </Col>
-      );
+  const renderDynamicFields = () => {
+    switch (afiliacion) {
+      case "Conrecibodesueldo":
+        return (
+          <>
+            <Col md={6} className="mb-3">
+              <Form.Label htmlFor="sueldoTitular">Sueldo del Titular</Form.Label>
+              <Form.Control
+                type="number"
+                id="sueldoTitular"
+                placeholder="Ingrese el sueldo"
+              />
+            </Col>
+            <Col md={6} className="mb-3">
+              <Form.Label htmlFor="aporteTitular">Aporte del Titular</Form.Label>
+              <Form.Control
+                type="number"
+                id="aporteTitular"
+                placeholder="Ingrese el aporte"
+              />
+            </Col>
+          </>
+        );
+      case "Monotributista":
+        return (
+          <Col md={12} className="mb-3">
+            <Form.Label htmlFor="categoriaMonotributista">
+              Categoría de Monotributista
+            </Form.Label>
+            <Form.Control as="select" id="categoriaMonotributista">
+              <option value="">Selecciona una categoría</option>
+              <option value="A">A</option>
+              <option value="A exento">A Exento</option>
+              <option value="B">B</option>
+              <option value="B exento">B Exento</option>
+              <option value="C">C</option>
+              <option value="D">D</option>
+              <option value="E">E</option>
+              <option value="F">F</option>
+              <option value="G">G</option>
+              <option value="H">H</option>
+              <option value="I">I</option>
+              <option value="J">J</option>
+              <option value="K">K</option>
+            </Form.Control>
+          </Col>
+        );
+      default:
+        return null;
     }
-    return null;
   };
 
   return (
@@ -65,7 +67,7 @@ const BillingInformation = (props) => {
       <div className="bs-stepper-content">
         <div role="tabpanel" className="bs-stepper-pane active dstepper-block">
           <Row className="gx-3">
-          <h3>Detalle de la Cotización</h3>
+            <h3>Detalle de la Cotización</h3>
             <Col md={4} className="mb-3">
               {/* First Name */}
               <Form.Label htmlFor="firstname">Nro de Póliza</Form.Label>
@@ -382,8 +384,8 @@ const BillingInformation = (props) => {
                 placeholder="Número de póliza"
               />
             </Col>
-            {/* Campo para seleccionar el tipo de afiliación */}
-            <Col md={15} className="mb-6 mt-5">
+            {/* Otros campos existentes */}
+            <Col md={12} className="mb-6 mt-5">
               <Form.Label htmlFor="afiliacion">Tipo de Afiliación</Form.Label>
               <Form.Control
                 as="select"
@@ -399,8 +401,8 @@ const BillingInformation = (props) => {
               </Form.Control>
             </Col>
 
-            {/* afiliaciones dinámicas */}
-            {renderSubOptions()}
+            {/* Renderizado dinámico de campos */}
+            {renderDynamicFields()}
           </Row>
 
           {/* Botón para avanzar */}

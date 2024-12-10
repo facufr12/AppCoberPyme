@@ -342,40 +342,6 @@ const BillingInformation = (props) => {
                 placeholder="Ingresar número de celular"
               />
             </Col>
-            <Row className="mb-3">
-              <Col xs={3}>
-                <Form.Label htmlFor="calle">Dirección</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Ingresar dirección"
-                  id="calle"
-                />
-              </Col>
-              <Col xs={3}>
-                <Form.Label htmlFor="nro">Número</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder=""
-                  id="nro"
-                />
-              </Col>
-              <Col xs={3}>
-                <Form.Label htmlFor="piso">Piso</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder=""
-                  id="piso"
-                />
-              </Col>
-              <Col xs={3}>
-                <Form.Label htmlFor="dpto">Depto</Form.Label>
-                <Form.Control
-                  type="text"
-                  placeholder="Ingresar departamento"
-                  id="dpto"
-                />
-              </Col>
-            </Row>
             <Col md={6} className="mb-3">
               <Form.Label htmlFor="loc">Localidad</Form.Label>
               <Form.Control as="select" id="loc">
@@ -409,13 +375,48 @@ const BillingInformation = (props) => {
               </Form.Control>
             </Col>
             <Col md={6} className="mb-3">
-              <Form.Label htmlFor="codpostal">Cód. Postal</Form.Label>
+              <Form.Label htmlFor="calle">Calle</Form.Label>
               <Form.Control
                 type="text"
-                id="codpostal"
-                placeholder="Código postal"
+                id="calle"
+                placeholder="Calle"
               />
             </Col>
+            <Row className="mb-3">
+              <Col xs={3}>
+                <Form.Label htmlFor="calle">Cód Postal</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingresar CP"
+                  id="Cpostal"
+                />
+              </Col>
+              <Col xs={3}>
+                <Form.Label htmlFor="nro">Número</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder=""
+                  id="nro"
+                />
+              </Col>
+              <Col xs={3}>
+                <Form.Label htmlFor="piso">Piso</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder=""
+                  id="piso"
+                />
+              </Col>
+              <Col xs={3}>
+                <Form.Label htmlFor="dpto">Depto</Form.Label>
+                <Form.Control
+                  type="text"
+                  placeholder="Ingresar departamento"
+                  id="dpto"
+                />
+              </Col>
+            </Row>
+          
             <Col md={15} className="mb-6 mt-5">
               <Form.Label htmlFor="afiliacion">Tipo de Afiliación</Form.Label>
               <Form.Control
@@ -431,42 +432,43 @@ const BillingInformation = (props) => {
                 <option value="Monotributista">Monotributista</option>
               </Form.Control>
             </Col>
-            {renderSubOptions()}
+      
             <div className="mt-4">
-              <Button variant="primary" onClick={handleAddFamiliar}>
-                Agregar Familiar
-              </Button>
-              <h4 className="mt-3">Familiares Agregados</h4>
-              {familiares.map((familiar, index) => (
-                <div key={index} className="border p-3 mb-2">
-                  <Row>
-                    <Col md={4}>
-                      <Form.Label>Tipo de Familiar</Form.Label>
-                      <Form.Control
-                        as="select"
-                        value={familiar.tipo}
-                        onChange={(e) => handleTipoFamiliarChange(index, e.target.value)}
-                      >
-                        <option value="">Seleccione</option>
-                        <option value="Pareja">Pareja / Cónyuge</option>
-                        <option value="Hijo/a">Hijo/a</option>
-                        <option value="Familiar a cargo">Familiar a cargo</option>
-                      </Form.Control>
-                    </Col>
-                    {familiar.tipo && renderCamposAdicionales(index)}
-                    <Col md={4}>
-                      <Button
-                        variant="danger"
-                        onClick={() => handleRemoveFamiliar(index)}
-                        style={{ marginTop: "25px" }}
-                      >
-                        Eliminar
-                      </Button>
-                    </Col>
-                  </Row>
-                </div>
-              ))}
-            </div>
+  <h4 className="mt-3">Familiares Agregados</h4>
+  {familiares.map((familiar, index) => (
+    <div key={index} className="border p-3 mb-2">
+      <Row>
+        <Col md={4}>
+          <Form.Label>Tipo de Familiar</Form.Label>
+          <Form.Control
+            as="select"
+            value={familiar.tipo}
+            onChange={(e) => handleTipoFamiliarChange(index, e.target.value)}
+          >
+            <option value="">Seleccione</option>
+            <option value="Pareja">Pareja / Cónyuge</option>
+            <option value="Hijo/a">Hijo/a</option>
+            <option value="Familiar a cargo">Familiar a cargo</option>
+          </Form.Control>
+        </Col>
+        {familiar.tipo && renderCamposAdicionales(index)}
+        <Col md={4}>
+          <Button
+            variant="danger"
+            onClick={() => handleRemoveFamiliar(index)}
+            style={{ marginTop: "25px" }}
+          >
+            Eliminar
+          </Button>
+        </Col>
+      </Row>
+    </div>
+  ))}
+  <Button variant="primary" onClick={handleAddFamiliar} className="mt-3">
+    Agregar Familiar
+  </Button>
+</div>
+
             <div className="d-flex justify-content-end mt-5">
               <Button variant="primary" onClick={next}>
                 Avanzar a "Declaración Jurada de Salud"

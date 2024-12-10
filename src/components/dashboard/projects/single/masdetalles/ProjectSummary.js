@@ -217,24 +217,29 @@ const ProjectSummary = () => {
               </div>
             </ListGroup.Item>
             <ListGroup.Item className="px-0">
-              <div className="d-flex justify-content-between align-items-center">
-                <div className="d-flex align-items-center">
-                  <BsTelephoneFill size={16} className="text-primary" />
-                  <div className="ms-2">
-                    <h5 className="mb-0 text-body">Celular</h5>
-                  </div>
-                </div>
-                <div>
-                  <a
-                    href={getWhatsAppLink(prospecto.cel)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <FaWhatsapp size={30} className="text-success" />
-                  </a>
-                </div>
-              </div>
-            </ListGroup.Item>
+  <div className="d-flex justify-content-between align-items-center">
+    <div className="d-flex align-items-center">
+      <BsTelephoneFill size={16} className="text-primary" />
+      <div className="ms-2">
+        <h5 className="mb-0 text-body">Celular</h5>
+      </div>
+    </div>
+    <div>
+      <a
+        href={getWhatsAppLink(prospecto.cel)}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <FaWhatsapp
+          size={30}
+          style={{
+            filter: "invert(27%) sepia(63%) saturate(473%) hue-rotate(224deg) brightness(92%) contrast(101%)",
+          }}
+        />
+      </a>
+    </div>
+  </div>
+</ListGroup.Item>
             <ListGroup.Item className="px-0">
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center">
@@ -251,24 +256,29 @@ const ProjectSummary = () => {
               </div>
             </ListGroup.Item>
             <ListGroup.Item className="px-0">
-              <div className="d-flex justify-content-between align-items-center">
-                <div className="d-flex align-items-center">
-                  <BsFillEnvelopeOpenFill size={16} className="text-primary" />
-                  <div className="ms-2">
-                    <h5 className="mb-0 text-body">Correo</h5>
-                  </div>
-                </div>
-                <div>
-                 <a
-                    href={getMailToLink(prospecto.correo)}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <BsFillEnvelopeOpenFill size={30} className="text-info" />
-                  </a>
-                </div>
-              </div>
-            </ListGroup.Item>
+  <div className="d-flex justify-content-between align-items-center">
+    <div className="d-flex align-items-center">
+      <BsFillEnvelopeOpenFill size={16} className="text-primary" />
+      <div className="ms-2">
+        <h5 className="mb-0 text-body">Correo</h5>
+      </div>
+    </div>
+    <div>
+      <a
+        href={getMailToLink(prospecto.correo)}
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <BsFillEnvelopeOpenFill
+          size={30}
+          style={{
+            filter: "invert(27%) sepia(63%) saturate(473%) hue-rotate(224deg) brightness(92%) contrast(101%)",
+          }}
+        />
+      </a>
+    </div>
+  </div>
+</ListGroup.Item>
             <ListGroup.Item className="px-0">
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center">

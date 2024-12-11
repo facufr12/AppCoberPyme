@@ -258,10 +258,9 @@ const Instructor = () => {
     style={{ display: "flex", alignItems: "center" }}
   >
     <FaWhatsapp
+      size={30}
       style={{
-        width: "34px",
-        height: "34px",
-        color: "#25D366",
+        filter: "invert(27%) sepia(63%) saturate(473%) hue-rotate(224deg) brightness(92%) contrast(101%)",
       }}
     />
   </a>

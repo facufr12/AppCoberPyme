@@ -30,7 +30,7 @@ const CommonHeaderTabs = () => {
 							<Button 
     variant="primary" 
     className="ms-3 mb-2"
-    onClick={() => window.location.href = '/dashboard/checkout/Checkout'}
+    onClick={() => window.location.href = 'https://miplancober.com/generador-de-polizas/'}
 >
     Crear Póliza
 </Button>

@@ -26,22 +26,24 @@ const Instructor = () => {
   const [showModal, setShowModal] = useState(false);
   const { userData } = useAuth();
   const estados = [
-    "Cotizacion Enviada",
-    "Desestimado Preexistencia",
-    "Desestimado Fuera de Zona",
-    "Desestimado por Edad",
-    "Pasa de Vigencia",
-    "No Contesta",
-    "Prueba Interna",
-    "Busca Aporte x Aporte",
-    "No Contesta",
-    "Ya es Socio",
-    "Buscas Otra Cobertura",
-    "Teléfono Erróneo",
-    "Email Erróneo",
-    "No le Interesa por Costos",
-    "No le Interesa por Cartilla",
-    "Tomó Otra Cobertura",
+    "Lead",
+    "1º Contacto",
+    "Calificado Cotización ",
+    "Calificado Póliza ",
+    "Calificado Pago",
+    "Venta",
+    "Fuera de zona",
+    "Fuera de edad",
+    "Preexistencia",
+    "Reafiliación",
+    "No contesta",
+    "prueba interna",
+    "Ya es socio",
+    "Busca otra Cobertura",
+    "Teléfono erróneo",
+    "No le interesa (económico)",
+    
+    "No le interesa cartilla",
   ];
 
   const navigate = useNavigate();
@@ -251,17 +253,16 @@ const Instructor = () => {
                     <span className="text-dark d-flex align-items-center">
   <a
     href={`https://wa.me/+54${person.cel}?text=${encodeURIComponent(
-        "Hola, te contacto de Cober para poder ayudarte a Cotizar tu plan."
+        "Hola, cómo estás? te escribo de COBER | Medicina Privada"
     )}`}
     target="_blank"
     rel="noopener noreferrer"
     style={{ display: "flex", alignItems: "center" }}
   >
     <FaWhatsapp
+      size={30}
       style={{
-        width: "34px",
-        height: "34px",
-        color: "#25D366",
+        filter: "invert(27%) sepia(63%) saturate(473%) hue-rotate(224deg) brightness(92%) contrast(101%)",
       }}
     />
   </a>

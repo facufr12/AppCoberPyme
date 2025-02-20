@@ -49,7 +49,7 @@ const Instructor = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const apiUrl = `https://script.google.com/macros/s/AKfycbxdpMKxwf7MSzAQ3F_n5BwH_ZQ9Mv9qbZ4ptq_r2QnIJUYXobKAsnx8X-anTGiZffGcpQ/exec?vendedor=${userData.vendedor}&func=obtenerDatos`;
+    const apiUrl = `https://script.google.com/macros/s/AKfycbx7k3w20Fy56iDTIqj9QExQxhy3O-znYPfnFl2QJNttqIHPaHJftJHngRlbyOAx8pLYlA/exec?vendedor=${userData.vendedor}&func=obtenerDatos`;
   
     const fetchGoogleSheetsData = async () => {
       try {
@@ -96,7 +96,7 @@ const Instructor = () => {
     setIsLoading(true); // Deshabilitar el botón
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbxdpMKxwf7MSzAQ3F_n5BwH_ZQ9Mv9qbZ4ptq_r2QnIJUYXobKAsnx8X-anTGiZffGcpQ/exec?func=cambiarEstadoDato",
+        "https://script.google.com/macros/s/AKfycbx7k3w20Fy56iDTIqj9QExQxhy3O-znYPfnFl2QJNttqIHPaHJftJHngRlbyOAx8pLYlA/exec?func=cambiarEstadoDato",
         {
           method: "POST",
           body: JSON.stringify({ id, estado }),

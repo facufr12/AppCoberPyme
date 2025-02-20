@@ -8,8 +8,9 @@ import {
   Spinner,
   Pagination,
   Form,
-  Modal,
+  Modal
 } from "react-bootstrap";
+import { BsFillEnvelopeOpenFill } from "react-icons/bs";
 import CustomToast from "../authentication/Toast";
 import { FaWhatsapp } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -42,26 +43,25 @@ const Instructor = () => {
     "Busca otra Cobertura",
     "Teléfono erróneo",
     "No le interesa (económico)",
-    
-    "No le interesa cartilla",
+    "No le interesa cartilla"
   ];
 
   const navigate = useNavigate();
 
   useEffect(() => {
     const apiUrl = `https://script.google.com/macros/s/AKfycbx7k3w20Fy56iDTIqj9QExQxhy3O-znYPfnFl2QJNttqIHPaHJftJHngRlbyOAx8pLYlA/exec?vendedor=${userData.vendedor}&func=obtenerDatos`;
-  
+
     const fetchGoogleSheetsData = async () => {
       try {
         const response = await fetch(apiUrl);
         const data = await response.json();
-  
+
         // Aseguramos que 'data' sea un arreglo y lo ordenamos
         if (Array.isArray(data)) {
           const sortedData = data.reverse(); // Cambia el orden a último primero
           setData(sortedData);
         } else {
-          console.warn('Respuesta de la API no es un arreglo:', data);
+          console.warn("Respuesta de la API no es un arreglo:", data);
           setData([]); // Establecemos un arreglo vacío si no es un arreglo
         }
       } catch (error) {
@@ -70,10 +70,9 @@ const Instructor = () => {
         setLoading(false);
       }
     };
-  
     fetchGoogleSheetsData();
   }, [userData.vendedor]);
-  
+
   const [showToast, setShowToast] = useState(false);
   const [toastMessage, setToastMessage] = useState("");
   const [toastTitle, setToastTitle] = useState("");
@@ -91,7 +90,6 @@ const Instructor = () => {
       )
     );
   };
-
   const enviarDatos = async (id, estado) => {
     setIsLoading(true); // Deshabilitar el botón
     try {
@@ -99,7 +97,7 @@ const Instructor = () => {
         "https://script.google.com/macros/s/AKfycbx7k3w20Fy56iDTIqj9QExQxhy3O-znYPfnFl2QJNttqIHPaHJftJHngRlbyOAx8pLYlA/exec?func=cambiarEstadoDato",
         {
           method: "POST",
-          body: JSON.stringify({ id, estado }),
+          body: JSON.stringify({ id, estado })
         }
       );
 
@@ -115,7 +113,6 @@ const Instructor = () => {
       setShowToast(true);
     } catch (error) {
       console.error("Error en la solicitud:", error);
-
       // Mostrar Toast de error
       setToastTitle("Error");
       setToastMessage(
@@ -126,7 +123,6 @@ const Instructor = () => {
       setIsLoading(false); // Habilitar el botón nuevamente
     }
   };
-
   const createCards = (data, page) => {
     const start = (page - 1) * cardsPerPage;
     const end = start + cardsPerPage;
@@ -134,10 +130,9 @@ const Instructor = () => {
 
     const handleDetailsClick = (person) => {
       navigate("/dashboard/projects/single/overview", {
-        state: { prospecto: person },
+        state: { prospecto: person }
       });
     };
-
     return (
       <>
         <ProspectForm
@@ -167,7 +162,7 @@ const Instructor = () => {
                           borderRadius: "40px",
                           fontSize: "24px",
                           fontWeight: "bold",
-                          marginBottom: "15px",
+                          marginBottom: "15px"
                         }}
                       >
                         {person.nombre
@@ -226,48 +221,68 @@ const Instructor = () => {
                         style={{
                           marginLeft: "10px",
                           padding: "2px 5px",
-                          fontSize: "17px",
+                          fontSize: "17px"
                         }}
                         onClick={() => enviarDatos(person.id, person.estado)}
                         disabled={isLoading} // Deshabilitar el botón
                       >
-                        <i className="fas fa-arrow-up"></i>
+                        {isLoading ? (
+                          <Spinner animation="border" size="sm" />
+                        ) : (
+                          <i className="fas fa-arrow-up"></i>
+                        )}
                       </Button>
                     </div>
                   </div>
-
                   <div className="d-flex justify-content-between border-bottom py-2 mt-3">
-                    <span>Edad</span>
+                    <span>Cápitas</span>
                     <span className="text-dark">{person.edad}</span>
                   </div>
                   <div className="d-flex justify-content-between border-bottom py-2 mt-3">
-                    <span>Tipo de Afiliación</span>
+                    <span>Nombre del Contacto</span>
                     <span className="text-dark">{person.tAfiliacion}</span>
                   </div>
                   <div className="d-flex justify-content-between border-bottom py-2 mt-3">
-                    <span>Grupo Familiar</span>
+                    <span>Cotización</span>
                     <span className="text-dark">{person.gpFamiliar}</span>
                   </div>
                   <div className="d-flex justify-content-between border-bottom py-2 mt-3">
                     <span>Celular</span>
                     <span className="text-dark d-flex align-items-center">
-  <a
-    href={`https://wa.me/+54${person.cel}?text=${encodeURIComponent(
-        "Hola, cómo estás? te escribo de COBER | Medicina Privada"
-    )}`}
-    target="_blank"
-    rel="noopener noreferrer"
-    style={{ display: "flex", alignItems: "center" }}
-  >
-    <FaWhatsapp
-      size={30}
-      style={{
-        filter: "invert(27%) sepia(63%) saturate(473%) hue-rotate(224deg) brightness(92%) contrast(101%)",
-      }}
-    />
-  </a>
-</span>
-
+                      <a
+                        href={`https://wa.me/+54${person.cel}?text=${encodeURIComponent(
+                          "Hola, cómo estás? te escribo de COBER | Medicina Privada"
+                        )}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ display: "flex", alignItems: "center" }}
+                      >
+                        <FaWhatsapp
+                          size={30}
+                          style={{
+                            filter:
+                              "invert(27%) sepia(63%) saturate(473%) hue-rotate(224deg) brightness(92%) contrast(101%)"
+                          }}
+                        />
+                      </a>
+                    </span>
+                  </div>
+                  <div className="d-flex justify-content-between border-bottom py-2 mt-3">
+                    <span>Correo</span>
+                    <span className="text-dark d-flex align-items-center">
+                      <a
+                        href={`mailto:${person.email}`}
+                        style={{ display: "flex", alignItems: "center" }}
+                      >
+                        <BsFillEnvelopeOpenFill
+                          size={30}
+                          style={{
+                            filter:
+                              "invert(27%) sepia(63%) saturate(473%) hue-rotate(224deg) brightness(92%) contrast(101%)"
+                          }}
+                        />
+                      </a>
+                    </span>
                   </div>
                   {/* Agregando el Progress Bar para la evolución */}
                   <div className="mt-3">
@@ -279,7 +294,7 @@ const Instructor = () => {
                           role="progressbar"
                           style={{
                             width: `${person.evolucion}%`,
-                            backgroundColor: "#754ffe",
+                            backgroundColor: "#754ffe"
                           }}
                           aria-valuenow={person.evolucion}
                           aria-valuemin="0"
@@ -293,7 +308,7 @@ const Instructor = () => {
                           left: "50%",
                           transform: "translateX(-50%)",
                           color: "#754ffe",
-                          fontWeight: "bold",
+                          fontWeight: "bold"
                         }}
                       >
                         {person.evolucion}%
@@ -319,13 +334,12 @@ const Instructor = () => {
               onClick={() => setCurrentPage(currentPage - 1)}
               disabled={currentPage === 1}
             />
-
             {Array.from(
               {
                 length: Math.min(
                   6,
                   Math.ceil(filteredData.length / cardsPerPage)
-                ),
+                )
               },
               (_, index) => {
                 const pageNumber = index + Math.max(1, currentPage - 3);
@@ -343,7 +357,6 @@ const Instructor = () => {
                 );
               }
             )}
-
             <Pagination.Next
               onClick={() => setCurrentPage(currentPage + 1)}
               disabled={
@@ -357,7 +370,7 @@ const Instructor = () => {
   };
   const handleDetailsClick = (person) => {
     navigate("/dashboard/projects/single/overview", {
-      state: { prospecto: person },
+      state: { prospecto: person }
     });
   };
   const createTable = (data) => (
@@ -408,7 +421,6 @@ const Instructor = () => {
       </Table>
     </div>
   );
-
   return (
     <Fragment>
       <CustomToast

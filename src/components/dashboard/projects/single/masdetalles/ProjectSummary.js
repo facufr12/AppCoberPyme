@@ -161,7 +161,7 @@ const ProjectSummary = () => {
                 <div className="d-flex align-items-center">
                   <BsPersonFill size={16} className="text-primary" />
                   <div className="ms-2">
-                    <h5 className="mb-0 text-body">Nombre</h5>
+                    <h5 className="mb-0 text-body">Razón Social</h5>
                   </div>
                 </div>
                 <div>
@@ -174,9 +174,9 @@ const ProjectSummary = () => {
             <ListGroup.Item className="px-0">
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center">
-                  <BsPersonVcardFill size={16} className="text-primary" />
+                <BsGeoAltFill size={16} className="text-primary" />
                   <div className="ms-2">
-                    <h5 className="mb-0 text-body">Edad</h5>
+                    <h5 className="mb-0 text-body">Cápitas</h5>
                   </div>
                 </div>
                 <div>
@@ -191,7 +191,7 @@ const ProjectSummary = () => {
                 <div className="d-flex align-items-center">
                   <BsCreditCard2BackFill size={16} className="text-primary" />
                   <div className="ms-2">
-                    <h5 className="mb-0 text-body">Tipo de Afiliación</h5>
+                    <h5 className="mb-0 text-body">Nombre del Contacto</h5>
                   </div>
                 </div>
                 <div>
@@ -206,7 +206,7 @@ const ProjectSummary = () => {
                 <div className="d-flex align-items-center">
                   <BsHouseFill size={16} className="text-primary" />
                   <div className="ms-2">
-                    <h5 className="mb-0 text-body">Grupo Familiar</h5>
+                    <h5 className="mb-0 text-body">Cotización</h5>
                   </div>
                 </div>
                 <div>
@@ -243,9 +243,9 @@ const ProjectSummary = () => {
             <ListGroup.Item className="px-0">
               <div className="d-flex justify-content-between align-items-center">
                 <div className="d-flex align-items-center">
-                  <BsGeoAltFill size={16} className="text-primary" />
+                  <BsPersonVcardFill size={16} className="text-primary" />
                   <div className="ms-2">
-                    <h5 className="mb-0 text-body">Partido</h5>
+                    <h5 className="mb-0 text-body">Cuil</h5>
                   </div>
                 </div>
                 <div>

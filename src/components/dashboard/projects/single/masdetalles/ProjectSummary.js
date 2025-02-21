@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Card, ListGroup, Dropdown, Modal, Button } from "react-bootstrap";
+import { Card, ListGroup, Dropdown, Modal,Spinner, Button } from "react-bootstrap";
 import { FaWhatsapp } from "react-icons/fa";
 import {
   BsPersonFill,
@@ -12,14 +12,25 @@ import {
   BsCreditCard2BackFill,
   BsFillSendFill
 } from "react-icons/bs";
-
+const getFirstSentence = (text) => {
+  if (!text) return "Sin Comentarios";
+  const match = text.match(/[^.!?]*[.!?]/); // Busca la primera oración completa
+  return match ? match[0] + " ..." : text.substring(0, 50) + " ..."; // Si no hay puntuación, corta después de 50 caracteres
+};
 import CustomToast from "components/dashboard/authentication/Toast";
 const ProjectSummary = () => {
   const location = useLocation();
   const { prospecto } = location.state || {};
-
+  const [show, setShow] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
   const [showModal, setShowModal] = useState(false);
   const [comentario, setComentario] = useState("");
+
+  useEffect(() => {
+    setComentario(prospecto?.comentario || "");
+  }, [prospecto]);
 
   const handleCloseModal = () => setShowModal(false);
   const handleShowModal = () => setShowModal(true);
@@ -32,12 +43,14 @@ const ProjectSummary = () => {
   const handleComentarioChange = (e) => setComentario(e.target.value);
 
   const enviarComentario = async () => {
+    setIsLoading(true); // Activa el estado de carga
+  
     const data = {
       id: prospecto?.id || "",
       vendedor: prospecto?.vendedor || "",
       comentario
     };
-
+  
     try {
       const response = await fetch(
         "https://script.google.com/macros/s/AKfycbx7k3w20Fy56iDTIqj9QExQxhy3O-znYPfnFl2QJNttqIHPaHJftJHngRlbyOAx8pLYlA/exec?func=agregarComentario",
@@ -46,7 +59,7 @@ const ProjectSummary = () => {
           body: JSON.stringify(data),
         }
       );
-
+  
       if (response.ok) {
         setToastConfig({
           show: true,
@@ -70,6 +83,8 @@ const ProjectSummary = () => {
         title: "Error",
         variant: "danger",
       });
+    } finally {
+      setIsLoading(false); // Desactiva el estado de carga después de la respuesta
     }
   };
   const CustomToggle = React.forwardRef(({ children, onClick }, ref) => (
@@ -233,7 +248,7 @@ const ProjectSummary = () => {
         <FaWhatsapp
           size={30}
           style={{
-            filter: "invert(27%) sepia(63%) saturate(473%) hue-rotate(224deg) brightness(92%) contrast(101%)",
+            fill: "rgb(117, 79, 254)", // Aplicar el color directamente
           }}
         />
       </a>
@@ -272,7 +287,7 @@ const ProjectSummary = () => {
         <BsFillEnvelopeOpenFill
           size={30}
           style={{
-            filter: "invert(27%) sepia(63%) saturate(473%) hue-rotate(224deg) brightness(92%) contrast(101%)",
+            fill: "rgb(117, 79, 254)", // Aplicar el color directamente
           }}
         />
       </a>
@@ -295,20 +310,65 @@ const ProjectSummary = () => {
               </div>
             </ListGroup.Item>
             <ListGroup.Item className="px-0">
-              <div className="d-flex justify-content-between align-items-center">
-                <div className="d-flex align-items-center">
-                  <BsFillEnvelopeOpenFill size={16} className="text-primary" />
-                  <div className="ms-2">
-                    <h5 className="mb-0 text-body">Comentarios Agregados</h5>
-                  </div>
-                </div>
-                <div>
-                  <p className="text-dark mb-0 fw-semi-bold">
-                    {prospecto.comentario || "Sin Comentarios"}
-                  </p>
-                </div>
-              </div>
-            </ListGroup.Item>
+        <div className="d-flex justify-content-between align-items-center">
+          <div className="d-flex align-items-center">
+            <BsFillEnvelopeOpenFill size={16} className="text-primary" />
+            <div className="ms-2">
+              <h5 className="mb-0 text-body">Comentarios Agregados</h5>
+            </div>
+          </div>
+
+          <div>
+            <Button
+              variant="link"
+              className="text-dark fw-semi-bold p-0 text-start"
+              style={{
+                maxWidth: "200px",
+                textOverflow: "ellipsis",
+                overflow: "hidden",
+                whiteSpace: "nowrap",
+              }}
+              onClick={handleShow}
+            >
+              {getFirstSentence(prospecto.comentario)}
+            </Button>
+          </div>
+        </div>
+      </ListGroup.Item>
+
+      {/* Modal */}
+      <Modal show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Comentario</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="d-flex flex-wrap text-break">
+            {prospecto.comentario || "No hay comentarios disponibles."}
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Modal */}
+      <Modal show={show} onHide={handleClose} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Comentario</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <div className="d-flex flex-wrap text-break">
+            {prospecto.comentario || "No hay comentarios disponibles."}
+          </div>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cerrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
           </ListGroup>
           <Button variant="primary" className="mt-4" onClick={handleShowModal}>
             Agregar Comentario
@@ -332,9 +392,16 @@ const ProjectSummary = () => {
               <Button variant="secondary" onClick={handleCloseModal}>
                 Cerrar
               </Button>
-              <Button variant="primary" onClick={enviarComentario}>
-                Guardar Comentario
-              </Button>
+              <Button variant="primary" onClick={enviarComentario} disabled={isLoading}>
+      {isLoading ? (
+        <>
+          <Spinner as="span" animation="border" size="sm" role="status" aria-hidden="true" />
+          {" "}Guardando...
+        </>
+      ) : (
+        "Guardar Comentario"
+      )}
+    </Button>
             </Modal.Footer>
           </Modal>
         </Card.Body>

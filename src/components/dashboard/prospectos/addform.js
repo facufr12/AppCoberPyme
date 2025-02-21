@@ -199,40 +199,18 @@ const ProspectForm = ({ show, handleClose }) => {
                 <option value="Primercontacto">
                 1º Contacto
                 </option>
-                <option value="CalificadoCotización ">
+                <option value="Enproceso ">
+                En Proceso
+                </option>
+                <option value="Calificadocotizacion ">
                 Calificado Cotización 
                 </option>
-                <option value="CalificadoPóliza ">
-                Calificado Póliza 
+                <option value="Ganado">Ganado</option>
+                <option value="Perdido">Perdido</option>
+                <option value="Pruebainterna">
+                Prueba interna
                 </option>
-                <option value="CalificadoPago">Calificado Pago</option>
-                <option value="Venta">Venta</option>
-                <option value="Fueradezona">
-                Fuera de zona
-                </option>
-                <option value="Fueradeedad">Fuera de edad</option>
-                <option value="Preexistencia">
-                Preexistencia
-                </option>
-                <option value="Reafiliación">
-                Reafiliación
-                </option>
-                <option value="Nocontesta">No contesta</option>
-                <option value="pruebainterna">
-                prueba interna
-                </option>
-
-                <option value="Yaessocio">
-                Ya es socio
-                </option>
-
-                <option value="BuscaotraCobertura">Busca otra Cobertura</option>
-                
-                <option value="Teléfonoerróneo">Teléfono erróneo</option>
-                
-                <option value="Noleinteresaeconómico">No le interesa (económico)</option>
-                
-                <option value="Noleinteresacartilla">No le interesa cartilla</option>
+           
               </Form.Control>
             </Form.Group>
 

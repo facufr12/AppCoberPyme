@@ -8,7 +8,7 @@ import {
   Spinner,
   Pagination,
   Form,
-  Modal
+  Modal,
 } from "react-bootstrap";
 import { BsFillEnvelopeOpenFill } from "react-icons/bs";
 import CustomToast from "../authentication/Toast";
@@ -29,21 +29,11 @@ const Instructor = () => {
   const estados = [
     "Lead",
     "1º Contacto",
-    "Calificado Cotización ",
-    "Calificado Póliza ",
-    "Calificado Pago",
-    "Venta",
-    "Fuera de zona",
-    "Fuera de edad",
-    "Preexistencia",
-    "Reafiliación",
-    "No contesta",
+    "En proceso",
+    "Calificado Cotización",
+    "Ganado",
+    "Perdido",
     "prueba interna",
-    "Ya es socio",
-    "Busca otra Cobertura",
-    "Teléfono erróneo",
-    "No le interesa (económico)",
-    "No le interesa cartilla"
   ];
 
   const navigate = useNavigate();
@@ -97,7 +87,7 @@ const Instructor = () => {
         "https://script.google.com/macros/s/AKfycbx7k3w20Fy56iDTIqj9QExQxhy3O-znYPfnFl2QJNttqIHPaHJftJHngRlbyOAx8pLYlA/exec?func=cambiarEstadoDato",
         {
           method: "POST",
-          body: JSON.stringify({ id, estado })
+          body: JSON.stringify({ id, estado }),
         }
       );
 
@@ -130,7 +120,7 @@ const Instructor = () => {
 
     const handleDetailsClick = (person) => {
       navigate("/dashboard/projects/single/overview", {
-        state: { prospecto: person }
+        state: { prospecto: person },
       });
     };
     return (
@@ -162,7 +152,7 @@ const Instructor = () => {
                           borderRadius: "40px",
                           fontSize: "24px",
                           fontWeight: "bold",
-                          marginBottom: "15px"
+                          marginBottom: "15px",
                         }}
                       >
                         {person.nombre
@@ -221,7 +211,7 @@ const Instructor = () => {
                         style={{
                           marginLeft: "10px",
                           padding: "2px 5px",
-                          fontSize: "17px"
+                          fontSize: "17px",
                         }}
                         onClick={() => enviarDatos(person.id, person.estado)}
                         disabled={isLoading} // Deshabilitar el botón
@@ -260,8 +250,7 @@ const Instructor = () => {
                         <FaWhatsapp
                           size={30}
                           style={{
-                            filter:
-                              "invert(27%) sepia(63%) saturate(473%) hue-rotate(224deg) brightness(92%) contrast(101%)"
+                            fill: "rgb(117, 79, 254)", // Aplicar el color directamente
                           }}
                         />
                       </a>
@@ -274,13 +263,12 @@ const Instructor = () => {
                         href={`mailto:${person.email}`}
                         style={{ display: "flex", alignItems: "center" }}
                       >
-                        <BsFillEnvelopeOpenFill
-                          size={30}
-                          style={{
-                            filter:
-                              "invert(27%) sepia(63%) saturate(473%) hue-rotate(224deg) brightness(92%) contrast(101%)"
-                          }}
-                        />
+                   <BsFillEnvelopeOpenFill
+  size={30}
+  style={{
+    fill: "rgb(117, 79, 254)", // Aplicar el color directamente
+  }}
+/>
                       </a>
                     </span>
                   </div>
@@ -294,7 +282,7 @@ const Instructor = () => {
                           role="progressbar"
                           style={{
                             width: `${person.evolucion}%`,
-                            backgroundColor: "#754ffe"
+                            backgroundColor: "#754ffe",
                           }}
                           aria-valuenow={person.evolucion}
                           aria-valuemin="0"
@@ -308,7 +296,7 @@ const Instructor = () => {
                           left: "50%",
                           transform: "translateX(-50%)",
                           color: "#754ffe",
-                          fontWeight: "bold"
+                          fontWeight: "bold",
                         }}
                       >
                         {person.evolucion}%
@@ -339,7 +327,7 @@ const Instructor = () => {
                 length: Math.min(
                   6,
                   Math.ceil(filteredData.length / cardsPerPage)
-                )
+                ),
               },
               (_, index) => {
                 const pageNumber = index + Math.max(1, currentPage - 3);
@@ -370,7 +358,7 @@ const Instructor = () => {
   };
   const handleDetailsClick = (person) => {
     navigate("/dashboard/projects/single/overview", {
-      state: { prospecto: person }
+      state: { prospecto: person },
     });
   };
   const createTable = (data) => (

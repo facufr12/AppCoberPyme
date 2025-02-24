@@ -366,11 +366,11 @@ const Instructor = () => {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Nombre</th>
-            <th>Edad</th>
-            <th>Partido</th>
+            <th>Razon Social</th>
+            <th>Cápitas</th>
+            <th>CUIT</th>
             <th>Estado</th>
-            <th>Tipo de Afiliación</th>
+            <th>Nombre del Contacto</th>
             <th>Celular</th>
             <th>Acciones</th>
           </tr>

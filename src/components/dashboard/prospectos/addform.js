@@ -166,12 +166,12 @@ const ProspectForm = ({ show, handleClose }) => {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group controlId="partido">
-            <Form.Label style={{ marginTop: "1rem" }}>Cuil</Form.Label>
+            <Form.Label style={{ marginTop: "1rem" }}>CUIT</Form.Label>
 <Form.Control
   type="number"
   value={partido}
   onChange={(e) => setPartido(e.target.value)}
-  placeholder="Ingrese su CUIL"
+  placeholder="Ingrese su CUIT"
   minLength={11}
   maxLength={11}
 />

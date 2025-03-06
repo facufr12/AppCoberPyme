@@ -39,7 +39,7 @@ const Instructor = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const apiUrl = `https://script.google.com/macros/s/AKfycbx7k3w20Fy56iDTIqj9QExQxhy3O-znYPfnFl2QJNttqIHPaHJftJHngRlbyOAx8pLYlA/exec?vendedor=${userData.vendedor}&func=obtenerDatos`;
+    const apiUrl = `https://script.google.com/macros/s/AKfycbyad5ToIenPBP915Txy3Moxe4M8_clx8BpIPjqpsgbpFlm8zseEA4_B9Fnn97krb6iREg/exec?vendedor=${userData.vendedor}&func=obtenerDatos`;
 
     const fetchGoogleSheetsData = async () => {
       try {

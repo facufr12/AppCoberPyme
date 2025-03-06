@@ -24,10 +24,13 @@ const ProspectForm = ({ show, handleClose }) => {
     e.preventDefault();
     setIsLoading(true); // Activar el estado de loading
 
+    // Verifica si el campo "partido" (CUIT) está vacío
+    const cuit = partido.trim() === "" ? "Sin Cuit" : partido;
+
     // Realiza la petición fetch
     try {
       const response = await fetch(
-        "https://script.google.com/macros/s/AKfycbx7k3w20Fy56iDTIqj9QExQxhy3O-znYPfnFl2QJNttqIHPaHJftJHngRlbyOAx8pLYlA/exec?func=añadirDato",
+        "https://script.google.com/macros/s/AKfycbyad5ToIenPBP915Txy3Moxe4M8_clx8BpIPjqpsgbpFlm8zseEA4_B9Fnn97krb6iREg/exec?func=añadirDato",
         {
           method: "POST",
           body: JSON.stringify({
@@ -37,7 +40,7 @@ const ProspectForm = ({ show, handleClose }) => {
             gpFamiliar,
             cel,
             correo,
-            partido,
+            partido: cuit, // Usamos la variable "cuit" que maneja el valor vacío
             estado,
             vendedor: asignarVendedor ? userData?.vendedor : null // Envío del vendedor desde userData si se selecciona el checkbox
           })
@@ -106,36 +109,34 @@ const ProspectForm = ({ show, handleClose }) => {
                 Nombre de Contacto
               </Form.Label>
               <Form.Control
-  type="text"
-  value={tAfiliacion}
-  onChange={(e) => setTAfiliacion(e.target.value)}
-  required
-  placeholder="Ingrese el Nombre de Contacto"
-/>
+                type="text"
+                value={tAfiliacion}
+                onChange={(e) => setTAfiliacion(e.target.value)}
+                required
+                placeholder="Ingrese el Nombre de Contacto"
+              />
             </Form.Group>
             <Form.Group controlId="edad">
               <Form.Label style={{ marginTop: "1rem" }}>Cápitas</Form.Label>
               <Form.Control
-  type="number"
-  value={edad}
-  onChange={(e) => setEdad(e.target.value)}
-  required
-  placeholder="Ingrese la cantidad de cápitas"
-  min={1}
-  max={100}
-/>
+                type="number"
+                value={edad}
+                onChange={(e) => setEdad(e.target.value)}
+                required
+                placeholder="Ingrese la cantidad de cápitas"
+              />
             </Form.Group>
 
             <Form.Group controlId="gpFamiliar">
-  <Form.Label style={{ marginTop: "1rem" }}>Cotización</Form.Label>
-  <Form.Control
-    type="text"
-    value={gpFamiliar}
-    onChange={(e) => setGpFamiliar(e.target.value)}
-    required
-    placeholder="Ingrese la cotización"
-  />
-</Form.Group>
+              <Form.Label style={{ marginTop: "1rem" }}>Cotización</Form.Label>
+              <Form.Control
+                type="text"
+                value={gpFamiliar}
+                onChange={(e) => setGpFamiliar(e.target.value)}
+                required
+                placeholder="Ingrese la cotización"
+              />
+            </Form.Group>
 
             <Form.Group controlId="cel">
               <Form.Label style={{ marginTop: "1rem" }}>Celular</Form.Label>
@@ -166,17 +167,15 @@ const ProspectForm = ({ show, handleClose }) => {
               </Form.Control.Feedback>
             </Form.Group>
             <Form.Group controlId="partido">
-            <Form.Label style={{ marginTop: "1rem" }}>CUIT</Form.Label>
-<Form.Control
-  type="number"
-  value={partido}
-  onChange={(e) => setPartido(e.target.value)}
-  placeholder="Ingrese su CUIT"
-  minLength={11}
-  maxLength={11}
-/>
-
-
+              <Form.Label style={{ marginTop: "1rem" }}>CUIT</Form.Label>
+              <Form.Control
+                type="number"
+                value={partido}
+                onChange={(e) => setPartido(e.target.value)}
+                placeholder="Ingrese su CUIT"
+                minLength={11}
+                maxLength={11}
+              />
             </Form.Group>
             <Form.Group controlId="vendedor">
               <Form.Check
@@ -196,21 +195,12 @@ const ProspectForm = ({ show, handleClose }) => {
               >
                 <option value="">Selecciona un estado</option>
                 <option value="Lead"> Lead </option>
-                <option value="Primercontacto">
-                1º Contacto
-                </option>
-                <option value="Enproceso ">
-                En Proceso
-                </option>
-                <option value="Calificadocotizacion ">
-                Calificado Cotización 
-                </option>
+                <option value="Primercontacto">1º Contacto</option>
+                <option value="Enproceso">En Proceso</option>
+                <option value="Calificadocotizacion">Calificado Cotización</option>
                 <option value="Ganado">Ganado</option>
                 <option value="Perdido">Perdido</option>
-                <option value="Pruebainterna">
-                Prueba interna
-                </option>
-           
+                <option value="Pruebainterna">Prueba interna</option>
               </Form.Control>
             </Form.Group>
 

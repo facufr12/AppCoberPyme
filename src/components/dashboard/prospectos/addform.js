@@ -128,15 +128,16 @@ const ProspectForm = ({ show, handleClose }) => {
             </Form.Group>
 
             <Form.Group controlId="gpFamiliar">
-              <Form.Label style={{ marginTop: "1rem" }}>Cotización</Form.Label>
-              <Form.Control
-                type="text"
-                value={gpFamiliar}
-                onChange={(e) => setGpFamiliar(e.target.value)}
-                required
-                placeholder="Ingrese la cotización"
-              />
-            </Form.Group>
+  <Form.Label style={{ marginTop: "1rem" }}>Cotización</Form.Label>
+  <Form.Control
+    type="text"
+    value={gpFamiliar}
+    onChange={(e) => setGpFamiliar(e.target.value)}
+    required
+    placeholder="Ingrese la cotización"
+  />
+</Form.Group>
+
 
             <Form.Group controlId="cel">
               <Form.Label style={{ marginTop: "1rem" }}>Celular</Form.Label>

@@ -24,6 +24,9 @@ const ProspectForm = ({ show, handleClose }) => {
     e.preventDefault();
     setIsLoading(true); // Activar el estado de loading
 
+    // Limpiar el valor de gpFamiliar (eliminar comas y el símbolo $) antes de enviarlo
+    const gpFamiliarClean = gpFamiliar.replace(/[^0-9]/g, "");
+
     // Verifica si el campo "partido" (CUIT) está vacío
     const cuit = partido.trim() === "" ? "Sin Cuit" : partido;
 
@@ -37,7 +40,7 @@ const ProspectForm = ({ show, handleClose }) => {
             nombre,
             edad,
             tAfiliacion,
-            gpFamiliar,
+            gpFamiliar: gpFamiliarClean, // Enviar el valor limpio (sin comas ni $)
             cel,
             correo,
             partido: cuit, // Usamos la variable "cuit" que maneja el valor vacío
@@ -82,6 +85,27 @@ const ProspectForm = ({ show, handleClose }) => {
   const isValidCel = (cel) => /^\d{10}$/.test(cel); // Suponiendo que el celular debe tener 10 dígitos
   const isValidEmail = (email) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 
+  // Función para formatear el valor de gpFamiliar
+  const formatGpFamiliar = (value) => {
+    // Eliminar cualquier carácter que no sea un número
+    const rawValue = value.replace(/\D/g, '');
+  
+    // Determinar la posición de la coma según la longitud del valor
+    let formattedValue = rawValue;
+    if (rawValue.length === 4) {
+      formattedValue = `${rawValue.slice(0, 1)},${rawValue.slice(1)}`; // Coma delante del primer número
+    } else if (rawValue.length === 5) {
+      formattedValue = `${rawValue.slice(0, 2)},${rawValue.slice(2)}`; // Coma después del segundo número
+    } else if (rawValue.length === 6) {
+      formattedValue = `${rawValue.slice(0, 3)},${rawValue.slice(3)}`; // Coma después del tercer número
+    } else if (rawValue.length === 7) {
+      formattedValue = `${rawValue.slice(0, 1)},${rawValue.slice(1)}`; // Coma delante del primer número
+    }
+  
+    // Agregar el símbolo $ al final
+    return formattedValue === "" ? "" : `${formattedValue}$`;
+  };
+  
   return (
     <>
       <Modal show={show} onHide={handleClose}>
@@ -126,19 +150,16 @@ const ProspectForm = ({ show, handleClose }) => {
                 placeholder="Ingrese la cantidad de cápitas"
               />
             </Form.Group>
-
             <Form.Group controlId="gpFamiliar">
-  <Form.Label style={{ marginTop: "1rem" }}>Cotización</Form.Label>
-  <Form.Control
-    type="text"
-    value={gpFamiliar}
-    onChange={(e) => setGpFamiliar(e.target.value)}
-    required
-    placeholder="Ingrese la cotización"
-  />
-</Form.Group>
-
-
+              <Form.Label style={{ marginTop: "1rem" }}>Cotización</Form.Label>
+              <Form.Control
+                type="text"
+                value={gpFamiliar}
+                onChange={(e) => setGpFamiliar(formatGpFamiliar(e.target.value))}
+                required
+                placeholder="Ingrese la cotización"
+              />
+            </Form.Group>
             <Form.Group controlId="cel">
               <Form.Label style={{ marginTop: "1rem" }}>Celular</Form.Label>
               <Form.Control
@@ -204,7 +225,6 @@ const ProspectForm = ({ show, handleClose }) => {
                 <option value="Pruebainterna">Prueba interna</option>
               </Form.Control>
             </Form.Group>
-
             <Button variant="primary" type="submit" className="mt-3" disabled={isLoading}>
               {isLoading ? "Enviando..." : "Guardar Prospecto"}
             </Button>
